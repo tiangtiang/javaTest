@@ -10,16 +10,10 @@ import java.util.stream.Collectors;
  */
 public class TestMain {
     public static void main(String[] args) {
-        ValidParentheses validParentheses = new ValidParentheses();
-        List<String> result = validParentheses.generateParenthesis(5);
-        System.out.println(result.size());
-        for(int i=0;i<result.size();i++){
-            System.out.println(result.get(i));
-        }
-        result = result.stream().distinct().collect(Collectors.toList());
-        System.out.println(result.size());
-        for(int i=0;i<result.size();i++){
-            System.out.println(result.get(i));
-        }
+        DuplicatesSortedArray duplicatesSortedArray = new DuplicatesSortedArray();
+        int result = duplicatesSortedArray.removeDuplicates(new int[]{
+                1, 1, 2
+        });
+        System.out.println(result);
     }
 }
