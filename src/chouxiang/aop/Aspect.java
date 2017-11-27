@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  *
  * 定义一个切面
  */
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Aspect {
     //Class.Method
