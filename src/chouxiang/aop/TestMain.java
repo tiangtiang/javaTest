@@ -7,7 +7,11 @@ public class TestMain {
     public static void main(String[] args) {
         AgentExecute agent = new AgentExecute();
         Work work = (Work)agent.bind(new DayWork());
-        work.sleep("tiang", 18);
+        try {
+            work.sleep("tiang", 18);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
 

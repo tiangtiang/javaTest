@@ -6,13 +6,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by lianglab on 2017/11/24.
+ * Created by lianglab on 2017/11/27.
  *
- * 在切点执行完毕后执行
+ * 最终一定会执行
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface After{
-    //参数，return, Others
+public @interface Finally {
     String value() default "";
 }

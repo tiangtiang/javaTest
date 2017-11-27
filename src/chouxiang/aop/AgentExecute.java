@@ -2,11 +2,17 @@ package chouxiang.aop;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.Proxy;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.regex.Pattern;
@@ -18,6 +24,7 @@ import java.util.regex.PatternSyntaxException;
  * 代理执行类
  */
 public class AgentExecute implements InvocationHandler {
+    //被代理的对象
     private Object target;
 
     /**
@@ -95,17 +102,40 @@ public class AgentExecute implements InvocationHandler {
             }
         });
         //执行目标函数，得到结果result
-        Object result = method.invoke(target, args);
-        //执行所有的After函数，按声明顺序
-        Arrays.stream(methods).filter(m->m.getAnnotation(After.class)!=null).forEach(m->{
-            try {
-                executeMethod(des, m, m.getAnnotation(After.class).value(), method, args, result);
-            }catch (Exception ex){
-                System.err.println("Execute after method: "+m.getName()+ " and a problem has occurred: "
-                        + ex.getMessage());
-            }
-        });
-        return result;
+        try {
+            Object result = method.invoke(target, args);
+            //执行所有的After函数，按声明顺序
+            Arrays.stream(methods).filter(m->m.getAnnotation(After.class)!=null).forEach(m->{
+                try {
+                    executeMethod(des, m, m.getAnnotation(After.class).value(), method, args, result);
+                }catch (Exception ex){
+                    System.err.println("Execute after method: "+m.getName()+ " and a problem has occurred: "
+                            + ex.getMessage());
+                }
+            });
+            return result;
+        }catch (Throwable tr){
+            //抛出异常，则执行异常处理函数
+            Arrays.stream(methods).filter(m->m.getAnnotation(WhenThrow.class)!=null).forEach(m->{
+                try {
+                    executeMethod(des, m, m.getAnnotation(WhenThrow.class).value(), method, args, null);
+                }catch (Exception ex){
+                    System.err.println("Execute after method: "+m.getName()+ " and a problem has occurred: "
+                            + ex.getMessage());
+                }
+            });
+            throw tr;
+        }finally {
+            //执行所有的Finally函数，按声明顺序
+            Arrays.stream(methods).filter(m->m.getAnnotation(Finally.class)!=null).forEach(m->{
+                try {
+                    executeMethod(des, m, m.getAnnotation(Finally.class).value(), method, args, null);
+                }catch (Exception ex){
+                    System.err.println("Execute after method: "+m.getName()+ " and a problem has occurred: "
+                            + ex.getMessage());
+                }
+            });
+        }
     }
 
     /**

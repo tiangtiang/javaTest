@@ -6,13 +6,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by lianglab on 2017/11/24.
+ * 当方法抛出异常时调用
  *
- * 在切点执行完毕后执行
+ * Created by lianglab on 2017/11/27.
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface After{
-    //参数，return, Others
+public @interface WhenThrow {
     String value() default "";
 }

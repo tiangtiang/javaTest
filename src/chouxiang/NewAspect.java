@@ -1,8 +1,6 @@
 package chouxiang;
 
-import chouxiang.aop.Before;
-import chouxiang.aop.After;
-import chouxiang.aop.Aspect;
+import chouxiang.aop.*;
 
 /**
  * Created by lianglab on 2017/11/27.
@@ -18,5 +16,13 @@ public class NewAspect {
     @After
     public void newAfter(){
         System.out.println("I'm the new after");
+    }
+    @WhenThrow
+    public void throwExcep(){
+        System.out.println("Something wrong!");
+    }
+    @Finally
+    public void finallyMethod(){
+        System.out.println("finally done!");
     }
 }
