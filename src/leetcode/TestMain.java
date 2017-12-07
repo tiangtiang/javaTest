@@ -1,17 +1,17 @@
 package leetcode;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * Created by tiang on 2017/10/30.
  */
 public class TestMain {
     public static void main(String[] args) {
-        DuplicatesSortedArray duplicatesSortedArray = new DuplicatesSortedArray();
-        int result = duplicatesSortedArray.removeDuplicates(new int[]{
-                1, 1, 2
-        });
-        System.out.println(result);
+        Permutation permutation = new Permutation();
+        int[] nums = new int[]{
+                1, 5, 1
+        };
+        permutation.nextPermutation(nums);
+        for(int i : nums){
+            System.out.println(i);
+        }
     }
 }
