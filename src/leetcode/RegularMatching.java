@@ -1,10 +1,5 @@
 package leetcode;
 
-import javafx.application.Preloader;
-
-import javax.swing.event.SwingPropertyChangeSupport;
-import javax.swing.table.TableRowSorter;
-import java.rmi.ConnectIOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,8 +121,8 @@ public class RegularMatching {
     }
 
     static boolean isMatch(String s, String p) {
-        if (s.isEmpty()) return p.isEmpty();
-        boolean firstMatch = !p.isEmpty() && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.');
+        if (p.isEmpty()) return s.isEmpty();
+        boolean firstMatch = !s.isEmpty() && (s.charAt(0) == p.charAt(0) || p.charAt(0) == '.');
         if (p.length() >= 2 && p.charAt(1) == '*')
             return (firstMatch && isMatch(s.substring(1), p)) || isMatch(s, p.substring(2));
         else
