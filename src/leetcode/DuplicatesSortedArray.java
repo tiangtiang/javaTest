@@ -44,4 +44,43 @@ public class DuplicatesSortedArray {
         int result = 0;
         return result;
     }
+
+    /**
+     *  Follow up for "Remove Duplicates":
+     What if duplicates are allowed at most twice?
+     For example,
+     Given sorted array nums = [1,1,1,2,2,3],
+     Your function should return length = 5, with the first five elements of nums being
+     1, 1, 2, 2 and 3. It doesn't matter what you leave beyond the new length.
+
+     增加一个次数的判断，记录符合条件的长度，将之后的数字填充到前面
+     * @param nums
+     * @return
+     */
+    public int removeDuplicates2(int[] nums) {
+        if(nums.length == 0)
+            return 0;
+        int nowPoint = 1;
+        int lastValue = nums[0];
+        int times = 1;
+        for(int i = 1;i<nums.length;i++){
+            if(lastValue == nums[i]){
+                if(times > 0){
+                    times -- ;
+                    if(nowPoint<i){
+                        nums[nowPoint] = nums[i];
+                    }
+                    nowPoint++;
+                }
+            }else{
+                if(nowPoint<i){
+                    nums[nowPoint] = nums[i];
+                }
+                nowPoint++;
+                times = 1;
+                lastValue = nums[i];
+            }
+        }
+        return nowPoint;
+    }
 }
