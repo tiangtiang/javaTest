@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Created by lianglab on 2018/4/13.
  */
-public class T {
+public class Test {
     public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchFieldException {
         /*Singleton singleton = Singleton.getInstance();
         ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("test"));
